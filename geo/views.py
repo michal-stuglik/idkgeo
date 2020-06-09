@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.core.serializers import serialize
 
 import os
+
+
 # from idkgeo.settings import BASE_DIR, STATIC_IMG
 
 
@@ -24,23 +26,15 @@ def thumb(request):
 
 
 def point(request):
-    # make geojson file and send
     print("I am here")
 
     if request.method == 'GET':
-        # if 'point' == request.GET.get('geo'):
+        points = Point.objects.all()
 
-        for p in Point.objects.all():
-            print(p.name)
+        # images = Image.objects.filter(point_id=p.id).all()
+        # return render(request=request, template_name='pop.html', context={'images': images})
 
-            images = Image.objects.filter(point_id=p.id).all()
-
-            from easy_thumbnails.files import get_thumbnailer
-            # thumb_url = get_thumbnailer(images[0].path_name)['avatar'].url
-            return render(request=request, template_name='pop.html', context={'images': images})
-
-        # return JsonResponse({''}, safe=False)
-        # return JsonResponse(serialize('geojson', Point.objects.all(), geometry_field='point', ), safe=False)
+        return render(request=request, template_name='point.json', context={'points': points})
 
 
 def index(request):

@@ -35,6 +35,25 @@ class Point(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def images(self):
+        return [im for im in Image.objects.filter(point_id=self.id).all()]
+
+    @property
+    def images_content(self):
+        return """<div></div>""".format(self.images)
+
+    @property
+    def coordinates(self):
+        return self.geo.x, self.geo.y
+
+    @property
+    def pop_content(self):
+        return """<div><h3>{}</h3>{}{}{}</div>""".format(self.name,
+                                                         "", # self.images_content,
+                                                         "",
+                                                         self.description)
+
 
 class Image(models.Model):
     name = models.CharField(max_length=256, unique=True)
