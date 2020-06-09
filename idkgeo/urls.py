@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+# TODO: only in dev mode: static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/#serving-uploaded-files-in-development
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
-    path('point/', include('geo.urls')),
-    path('', include('geo.urls')),
-    path('admin/', admin.site.urls),
-]
-
-
+                  path('', include('geo.urls')),
+                  path('point/', include('geo.urls')),
+                  path('admin/', admin.site.urls),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

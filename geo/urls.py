@@ -14,20 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from django.contrib.gis import admin
 
 from . import views
 
-
-# TODO: only in dev mode: static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/#serving-uploaded-files-in-development
-
-from django.conf import settings
-from django.conf.urls.static import static
-
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('point/', views.point),
+    path('', views.point),
     # path('thumb/', views.thumb)
     # path('', views.index, name='index'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

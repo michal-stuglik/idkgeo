@@ -130,9 +130,9 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 # STATIC_ROOT = ''
-MEDIA_ROOT = '/home/michal/workspace/code/idkgeo/uploads/'
-STATIC_IMG = 'uploads'
-MEDIA_URL = '/uploads/'
+MEDIA_ROOT = '/home/michal/workspace/code/idkgeo/media/'
+MEDIA_UPLOAD = 'uploads/'
+MEDIA_URL = '/'
 STATIC_URL = '/static/'
 
 THUMBNAIL_DEBUG = True
