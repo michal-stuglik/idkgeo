@@ -1,3 +1,7 @@
 
 
-https://github.com/SmileyChris/easy-thumbnails
+```
+python manage.py makemigrations geo
+python manage.py migrate
+python manage.py createsuperuser
+```

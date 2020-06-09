@@ -5,6 +5,7 @@ import os
 from uuid import uuid4
 from django.utils.deconstruct import deconstructible
 from idkgeo.settings import STATIC_IMG
+from easy_thumbnails.fields import ThumbnailerImageField
 
 
 @deconstructible
@@ -40,7 +41,7 @@ class Point(models.Model):
 class Image(models.Model):
     name = models.CharField(max_length=256, unique=True)
     created = models.DateTimeField(auto_now_add=True)
-    image = models.FileField(upload_to=UploadToPathAndRename(os.path.join(STATIC_IMG)), null=False)
+    url = ThumbnailerImageField(upload_to=UploadToPathAndRename(os.path.join(STATIC_IMG)), null=False)
 
     point = models.ForeignKey(to=Point, on_delete=models.SET_NULL, null=True)
 

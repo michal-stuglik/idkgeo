@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'geoback.apps.GeobackConfig',
+    'geo.apps.GeobackConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/uploads/'
 
 CORS_ORIGIN_ALLOW_ALL = True  # False
 
@@ -129,5 +129,16 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
 
-
+# STATIC_ROOT = ''
+MEDIA_ROOT = '/home/michal/workspace/code/idkgeo/uploads/'
 STATIC_IMG = 'uploads'
+MEDIA_URL = '/uploads/'
+STATIC_URL = '/static/'
+
+THUMBNAIL_DEBUG = True
+# THUMBNAIL_BASEDIR = 'thumb'
+THUMBNAIL_ALIASES = {
+    '': {
+        'thumb': {'size': (150, 150), 'crop': True},
+    },
+}
