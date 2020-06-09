@@ -1,18 +1,10 @@
 {% extends "__base.html" %}
 
-{#{% load static %}#}
-
-
-{% block title %} NewtBase - {{ transcript.transcript_id }} {% endblock %}
-
 {% block content %}
-
-{% load thumbnail %}
-
-<div>
-  {% for image in images %}
-        <p><img src="{{ image.url|thumbnail_url:'thumb' }}" alt={{ image.name }} /></p>
-  {% endfor %}
-</div>
-{#    |thumbnail_url:'thumb'#}
+    {% load thumbnail %}
+    <div>
+        {% for image in images %}
+            <p><img src="{{ image.url|thumbnail_url:'thumb' }}" alt={{ image.name }}/></p>
+        {% endfor %}
+    </div>
 {% endblock %}
