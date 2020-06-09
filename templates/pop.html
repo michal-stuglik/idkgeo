@@ -11,7 +11,7 @@
 
 <div>
   {% for image in images %}
-        <p><img src="{{ image.url }}" alt={{ image.name }} /></p>
+        <p><img src="{%  thumbnail image.url 100x100 crop %}" alt={{ image.name }} /></p>
   {% endfor %}
 </div>
 {#    |thumbnail_url:'thumb'#}
