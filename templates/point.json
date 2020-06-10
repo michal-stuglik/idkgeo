@@ -12,6 +12,7 @@
       {% for point in points %}
         {
           "type": "Feature",
+          "key":  {{ forloop.counter }},
           "properties": {
             "title": "{{ point.name }}",
             "description": "{{ point.description }}",
