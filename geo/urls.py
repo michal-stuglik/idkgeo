@@ -18,8 +18,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('', views.point, name="point"),
-    # path('thumb/', views.thumb)
-    # path('', views.index, name='index'),
+    path("point/", views.point, name="point"),
 ]

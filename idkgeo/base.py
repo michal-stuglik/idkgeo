@@ -18,14 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+3!a^x=o%rvvp&=zy9ii9h5cxz9yqwrfw$n2o(x^)3mfgxq7o2'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'easy_thumbnails',
+    'django.contrib.sites'
 ]
 
 MIDDLEWARE = [
@@ -79,11 +72,8 @@ WSGI_APPLICATION = 'idkgeo.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': 'django.contrib.gis.db.backends.spatialite',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        # 'NAME': 'geodjango',
-        # 'USER': 'geo',
     }
 }
 
@@ -110,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 
@@ -121,31 +111,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-# STATIC_URL = '/uploads/'
-
-CORS_ORIGIN_ALLOW_ALL = True  # False
-
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-)
-
-# STATIC_ROOT = ''
-MEDIA_ROOT = '/home/michal/workspace/code/idkgeo/media/'
-MEDIA_UPLOAD = 'uploads/'
-MEDIA_URL = '/'
-STATIC_URL = '/static/'
-
-THUMBNAIL_DEBUG = True
-# THUMBNAIL_BASEDIR = 'thumb'
-THUMBNAIL_ALIASES = {
-    '': {
-        'thumb': {'size': (150, 150), 'crop': True},
-    },
-}
-
-# SITE_ID = 1
-SITE_URL = 'http://127.0.0.1:8002/'
-
-# TODO: split settings
-if not DEBUG:
-    SITE_URL = ""
+# ??
+# SITE_URL = 'http://127.0.0.1:8002/'
+MEDIA_URL = 'media/'

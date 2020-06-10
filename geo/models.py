@@ -5,7 +5,8 @@ from django.contrib.gis.db import models
 from django.utils.deconstruct import deconstructible
 from easy_thumbnails.fields import ThumbnailerImageField
 from easy_thumbnails.files import get_thumbnailer
-from idkgeo.settings import SITE_URL
+from django.contrib.sites.models import Site
+from idkgeo.base import MEDIA_URL
 
 
 @deconstructible
@@ -89,13 +90,20 @@ class Film(models.Model):
         return self.name
 
 
-def make_url(site_url, image_str):
-    return str(site_url).rstrip("/") + "/" + str(image_str).lstrip("/")
+def make_url(site_url: str, image_str: str, media_str=""):
+    if len(media_str) == 0:
+        return str(site_url).rstrip("/") + "/" + str(image_str).lstrip("/")
+    else:
+        return str(site_url).rstrip("/") + "/" + media_str.strip("/") + "/" + str(image_str).lstrip("/")
 
 
 def image_link(img: Image):
     options = {'size': (100, 100), 'crop': True}
+
     thumb_url = get_thumbnailer(img.url).get_thumbnail(options).url
 
-    full_image, thumb_image = make_url(SITE_URL, str(img.url)), make_url(SITE_URL, thumb_url)
+    current_site = Site.objects.get_current()
+
+    full_image, thumb_image = make_url(current_site, str(img.url), media_str=MEDIA_URL), make_url(current_site,
+                                                                                                  thumb_url)
     return "<a target='_blank' href='{}'><img class='aImg' src='{}'/></a>".format(full_image, thumb_image)
