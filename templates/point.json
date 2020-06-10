@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "key": 1,
+  "key": 0,
   "crs": {
     "type": "name",
     "properties": {
@@ -8,7 +8,8 @@
     }
   },
   "features": [
-      "{% for point in points %}",
+ {% autoescape off %}
+      {% for point in points %}
         {
           "type": "Feature",
           "properties": {
@@ -19,10 +20,11 @@
           "geometry": {
             "type": "Point",
             "coordinates": [
-              {{ point.geo.x }} {{ point.geo.y}}
+              {{ point.geo.x }}, {{ point.geo.y }}
             ]
           }
         },
-    "{% endfor %}"
+    {% endfor %}
+    {% endautoescape %}
   ]
 }
