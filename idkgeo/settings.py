@@ -142,3 +142,10 @@ THUMBNAIL_ALIASES = {
         'thumb': {'size': (150, 150), 'crop': True},
     },
 }
+
+# SITE_ID = 1
+SITE_URL = 'http://127.0.0.1:8002/'
+
+# TODO: split settings
+if not DEBUG:
+    SITE_URL = ""

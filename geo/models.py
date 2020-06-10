@@ -4,6 +4,8 @@ from uuid import uuid4
 from django.contrib.gis.db import models
 from django.utils.deconstruct import deconstructible
 from easy_thumbnails.fields import ThumbnailerImageField
+from easy_thumbnails.files import get_thumbnailer
+from idkgeo.settings import SITE_URL
 
 
 @deconstructible
@@ -36,12 +38,20 @@ class Point(models.Model):
         return self.name
 
     @property
-    def images(self):
-        return [im for im in Image.objects.filter(point_id=self.id).all()]
+    def film_in_list(self):
+        return [image_link(im) for im in Film.objects.filter(point_id=self.id).all()]
+
+    @property
+    def images_in_list(self):
+        return [image_link(im) for im in Image.objects.filter(point_id=self.id).all()]
+
+    @property
+    def film_content(self):
+        return """<div class='divVid'>{}</div>""".format("".join(self.film_in_list))
 
     @property
     def images_content(self):
-        return """<div></div>""".format(self.images)
+        return """<div class='divImg'>{}</div>""".format("".join(self.images_in_list))
 
     @property
     def coordinates(self):
@@ -50,8 +60,8 @@ class Point(models.Model):
     @property
     def pop_content(self):
         return """<div><h3>{}</h3>{}{}{}</div>""".format(self.name,
-                                                         "", # self.images_content,
-                                                         "",
+                                                         self.images_content,
+                                                         self.film_content,
                                                          self.description)
 
 
@@ -77,3 +87,15 @@ class Film(models.Model):
     # Returns the string representation of the model.
     def __str__(self):
         return self.name
+
+
+def make_url(site_url, image_str):
+    return str(site_url).rstrip("/") + "/" + str(image_str).lstrip("/")
+
+
+def image_link(img: Image):
+    options = {'size': (100, 100), 'crop': True}
+    thumb_url = get_thumbnailer(img.url).get_thumbnail(options).url
+
+    full_image, thumb_image = make_url(SITE_URL, str(img.url)), make_url(SITE_URL, thumb_url)
+    return "<a target='_blank' href='{}'><img class='aImg' src='{}'/></a>".format(full_image, thumb_image)
