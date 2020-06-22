@@ -2,6 +2,8 @@
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
+import os
+from idkgeo.base import BASE_DIR
 from geo.models import Point
 
 
@@ -43,6 +45,14 @@ def point(request):
 
         template_as_string = render_to_string(request=request, template_name='point.json', context={'points': points})
         return HttpResponse(fix_json(template_as_string), content_type='application/json')
+
+
+def ciecia(request):
+    if request.method == 'GET':
+        path = os.path.join(BASE_DIR, 'static', 'ciecia2020.geojson')
+        with open(path, 'r') as my_file:
+            data = my_file.read()
+        return HttpResponse(content=data, content_type='application/json')
 
 
 def index(request):

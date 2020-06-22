@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("point/", views.point, name="point"),
+    path("ciecia/", views.ciecia, name="ciecia"),
 ]
